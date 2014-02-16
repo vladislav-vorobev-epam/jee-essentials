@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class LoginServlet extends HttpServlet {
             LOGGER.warn("Login failure, redirect to proper page");
             response.sendRedirect(request.getContextPath() + "/errors/login_failure.jsp");
         } else {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("username", login);
             response.sendRedirect(request.getContextPath() + "/app.jsp");
         }
     }
