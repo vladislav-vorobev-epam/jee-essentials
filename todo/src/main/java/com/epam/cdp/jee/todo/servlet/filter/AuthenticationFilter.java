@@ -9,7 +9,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +32,9 @@ public class AuthenticationFilter implements Filter {
             String username = (String) session.getAttribute("username");
             if (Strings.isNullOrEmpty(username)) {
                 log.warn("Is about to redirect user '{}' to unauthorised area.", username);
-                ((HttpServletResponse) servletResponse).sendRedirect(request.getContextPath()
-                        + "/errors/unauthorised.jsp");
+//                ((HttpServletResponse) servletResponse).sendRedirect(request.getContextPath()
+//                        + "/errors/unauthorised.jsp");
+                filterChain.doFilter(request, servletResponse);
             } else {
                 log.debug("User '{}' is authenticated.", username);
                 filterChain.doFilter(request, servletResponse);
