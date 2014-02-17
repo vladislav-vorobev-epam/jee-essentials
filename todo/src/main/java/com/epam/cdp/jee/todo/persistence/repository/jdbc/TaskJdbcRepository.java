@@ -1,5 +1,6 @@
 package com.epam.cdp.jee.todo.persistence.repository.jdbc;
 
+import java.util.List;
 import javax.ejb.Stateless;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,4 +28,9 @@ public class TaskJdbcRepository implements TaskRepository {
     public void remove(final Task task) {
 
     }
+
+  @Override
+  public List<Task> list() {
+        return null;
+  }
 }

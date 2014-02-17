@@ -7,14 +7,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import lombok.Data;
+
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
-
-import com.epam.cdp.jee.todo.persistence.entity.User;
+import lombok.Data;
 
 @Entity
 @Table(name = "tasks")
@@ -31,6 +31,7 @@ public class Task implements Serializable {
 
     @Column(name = "due_datetime", nullable = false)
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @OrderColumn
     private DateTime dueDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)

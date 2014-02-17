@@ -1,8 +1,11 @@
 package com.epam.cdp.jee.todo.persistence.repository.jpa;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,5 +36,15 @@ public class TaskJpaRepository implements TaskRepository {
     @Override
     public void remove(final Task task) {
         entityManager.remove(task);
+    }
+
+    @Override
+    public List<Task> list() {
+        List<Task> tasks;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Task> query = criteriaBuilder.createQuery(Task.class);
+        query.distinct(true).from(Task.class);
+        tasks = entityManager.createQuery(query).getResultList();
+        return tasks;
     }
 }

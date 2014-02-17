@@ -41,5 +41,6 @@ public class AddTaskServlet extends HttpServlet {
         task.setDueDateTime(DateTimeFormat.forPattern(pattern).parseDateTime(dueDateParam));
         taskRepository.add(task);
         // TODO: add task assignment to user
+        response.sendRedirect(request.getContextPath() + "/app.jsp");
     }
 }
