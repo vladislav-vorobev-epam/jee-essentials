@@ -7,12 +7,7 @@
 <head>
 <body>
 <div class="container">
-  <ul class="nav nav-tabs">
-    <li><a href="<%= request.getContextPath()%>/app.jsp">In Progress</a></li>
-    <li class="active"><a href="<%= request.getContextPath()%>/new.jsp">New</a></li>
-    <li><a href="<%= request.getContextPath()%>/done.jsp">Done</a></li>
-    <li><a href="#">Help</a></li>
-  </ul>
+  <jsp:include page="parts/navigation.jsp"/>
   <div class="panel panel-default">
     <div class="panel-heading">New ToDo item</div>
     <div class="panel-body">
