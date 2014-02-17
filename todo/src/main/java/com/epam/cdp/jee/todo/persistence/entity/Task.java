@@ -1,4 +1,4 @@
-package com.epam.cdp.jee.todo.persistence;
+package com.epam.cdp.jee.todo.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+
+import com.epam.cdp.jee.todo.persistence.entity.User;
 
 @Entity
 @Table(name = "tasks")

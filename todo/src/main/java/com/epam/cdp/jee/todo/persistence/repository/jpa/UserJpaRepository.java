@@ -1,18 +1,17 @@
-package com.epam.cdp.jee.todo.repository;
+package com.epam.cdp.jee.todo.persistence.repository.jpa;
 
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.epam.cdp.jee.todo.persistence.User;
+import lombok.extern.slf4j.Slf4j;
+
+import com.epam.cdp.jee.todo.persistence.entity.User;
 
 @Stateless
-public class UserRepository {
-
-    @Inject
-    private Logger log;
+@Slf4j
+public class UserJpaRepository {
 
     @Inject
     private EntityManager entityManager;

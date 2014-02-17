@@ -2,7 +2,6 @@ package com.epam.cdp.jee.todo.servlet;
 
 import java.io.IOException;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +12,10 @@ import org.joda.time.format.DateTimeFormat;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import com.epam.cdp.jee.todo.persistence.Task;
-import com.epam.cdp.jee.todo.persistence.User;
-import com.epam.cdp.jee.todo.repository.TaskRepository;
-import com.epam.cdp.jee.todo.repository.UserRepository;
+import com.epam.cdp.jee.todo.persistence.Jpa;
+import com.epam.cdp.jee.todo.persistence.entity.Task;
+import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
+import com.epam.cdp.jee.todo.persistence.repository.jpa.UserJpaRepository;
 
 @WebServlet("/task/add.do")
 @NoArgsConstructor
@@ -24,10 +23,11 @@ import com.epam.cdp.jee.todo.repository.UserRepository;
 public class AddTaskServlet extends HttpServlet {
 
     @Inject
+    @Jpa
     private TaskRepository taskRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private UserJpaRepository userRepository;
 
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
@@ -39,12 +39,7 @@ public class AddTaskServlet extends HttpServlet {
         Task task = new Task();
         task.setName(taskName);
         task.setDueDateTime(DateTimeFormat.forPattern(pattern).parseDateTime(dueDateParam));
-
-        try {
-            User user = userRepository.findByLogin(login);
-            taskRepository.add(task, user);
-        } catch (NoResultException exc) {
-            log.error("Unable to find user '{}'", login);
-        }
+        taskRepository.add(task);
+        // TODO: add task assignment to user
     }
 }

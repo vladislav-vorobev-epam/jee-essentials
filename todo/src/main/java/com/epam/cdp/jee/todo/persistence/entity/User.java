@@ -1,4 +1,4 @@
-package com.epam.cdp.jee.todo.persistence;
+package com.epam.cdp.jee.todo.persistence.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -15,9 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Data;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Data;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
