@@ -14,4 +14,6 @@ public interface TaskRepository {
     void remove(Task task);
 
     List<Task> list();
+
+    List<Task> list(User user);
 }

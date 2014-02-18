@@ -47,4 +47,9 @@ public class TaskJpaRepository implements TaskRepository {
         tasks = entityManager.createQuery(query).getResultList();
         return tasks;
     }
+
+    @Override
+    public List<Task> list(final User user) {
+        return null;
+    }
 }

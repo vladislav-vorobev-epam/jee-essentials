@@ -16,21 +16,26 @@ import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
 public class TaskJdbcRepository implements TaskRepository {
     @Override
     public void add(final Task task, final User user) {
-
+        throw new UnsupportedOperationException();
     }
 
-  @Override
-  public void add(final Task task) {
+    @Override
+    public void add(final Task task) {
+        throw new UnsupportedOperationException();
+    }
 
-  }
-
-  @Override
+    @Override
     public void remove(final Task task) {
-
+        throw new UnsupportedOperationException();
     }
 
-  @Override
-  public List<Task> list() {
-        return null;
-  }
+    @Override
+    public List<Task> list() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Task> list(final User user) {
+        throw new UnsupportedOperationException();
+    }
 }

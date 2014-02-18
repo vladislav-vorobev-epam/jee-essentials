@@ -1,6 +1,7 @@
 package com.epam.cdp.jee.todo.servlet;
 
 import java.io.IOException;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import lombok.NoArgsConstructor;
 
+import com.epam.cdp.jee.todo.persistence.Jdbc;
+import com.epam.cdp.jee.todo.persistence.repository.UserRepository;
 import com.google.common.base.Strings;
 
 @WebServlet("/login.do")
@@ -19,6 +22,10 @@ import com.google.common.base.Strings;
 public class LoginServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
+
+    @Inject
+    @Jdbc
+    private UserRepository userRepository;
 
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
@@ -32,6 +39,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("username", login);
+            userRepository.findByLogin(login);
             response.sendRedirect(request.getContextPath() + "/app.jsp");
         }
     }

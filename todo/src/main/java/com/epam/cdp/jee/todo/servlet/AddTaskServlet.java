@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.epam.cdp.jee.todo.persistence.Jpa;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
-import com.epam.cdp.jee.todo.persistence.repository.jpa.UserJpaRepository;
+import com.epam.cdp.jee.todo.persistence.repository.UserRepository;
 
 @WebServlet("/task/add.do")
 @NoArgsConstructor
@@ -27,7 +27,8 @@ public class AddTaskServlet extends HttpServlet {
     private TaskRepository taskRepository;
 
     @Inject
-    private UserJpaRepository userRepository;
+    @Jpa
+    private UserRepository userRepository;
 
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response)

@@ -27,6 +27,7 @@ import lombok.Data;
 public class User implements Serializable {
 
     public static final String FIND_BY_LOGIN = "findByLogin";
+
     @Id
     @GeneratedValue
     private long id;
