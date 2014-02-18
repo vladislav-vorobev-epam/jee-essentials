@@ -1,6 +1,7 @@
 package com.epam.cdp.jee.todo.servlet;
 
 import java.io.IOException;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import lombok.NoArgsConstructor;
 
+import com.epam.cdp.jee.todo.jsp.producer.Principal;
 import com.epam.cdp.jee.todo.persistence.Jdbc;
 import com.epam.cdp.jee.todo.persistence.repository.UserRepository;
 import com.google.common.base.Strings;
@@ -27,6 +29,9 @@ public class LoginServlet extends HttpServlet {
     @Jdbc
     private UserRepository userRepository;
 
+    @Inject
+    private Event<Principal> principalEvent;
+
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,8 +44,14 @@ public class LoginServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("username", login);
-            userRepository.findByLogin(login);
+            notifyUserLoggedIn(login);
             response.sendRedirect(request.getContextPath() + "/app.jsp");
         }
+    }
+
+    private void notifyUserLoggedIn(final String login) {
+        Principal principal = new Principal();
+        principal.setLogin(login);
+        principalEvent.fire(principal);
     }
 }
