@@ -50,6 +50,6 @@ public class TaskJpaRepository implements TaskRepository {
 
     @Override
     public List<Task> list(final User user) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }
