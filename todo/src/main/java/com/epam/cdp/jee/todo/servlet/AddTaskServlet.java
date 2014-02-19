@@ -16,6 +16,7 @@ import com.epam.cdp.jee.todo.persistence.Jpa;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
 import com.epam.cdp.jee.todo.persistence.repository.UserRepository;
+import com.epam.cdp.jee.todo.DateFormatConstants;
 
 @WebServlet("/task/add.do")
 @NoArgsConstructor
@@ -36,10 +37,9 @@ public class AddTaskServlet extends HttpServlet {
         String login = request.getParameter("username");
         String taskName = request.getParameter("name");
         String dueDateParam = request.getParameter("dueDateTime");
-        String pattern = "dd-MM-yyyy H:m";
         Task task = new Task();
         task.setName(taskName);
-        task.setDueDateTime(DateTimeFormat.forPattern(pattern).parseDateTime(dueDateParam));
+        task.setDueDateTime(DateTimeFormat.forPattern(DateFormatConstants.DATE_TIME).parseDateTime(dueDateParam));
         taskRepository.add(task);
         // TODO: add task assignment to user
         response.sendRedirect(request.getContextPath() + "/app.jsp");
