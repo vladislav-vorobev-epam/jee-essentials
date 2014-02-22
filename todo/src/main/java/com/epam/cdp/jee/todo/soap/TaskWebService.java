@@ -1,29 +1,26 @@
-package com.epam.cdp.jee.todo.rest;
+package com.epam.cdp.jee.todo.soap;
 
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.xml.ws.WebEndpoint;
 
 import com.epam.cdp.jee.todo.persistence.Jpa;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
 
-@Path("/tasks")
-@RequestScoped
-@Produces(MediaType.APPLICATION_JSON)
-public class TaskRestService {
+@WebService
+public class TaskWebService implements TaskService {
 
     @Inject
     @Jpa
     private TaskRepository taskRepository;
 
-    @GET
+    @Override
+    @WebMethod
+    @WebEndpoint(name = "TaskWebService")
     public List<Task> tasks() {
         return taskRepository.list();
     }
-
 }

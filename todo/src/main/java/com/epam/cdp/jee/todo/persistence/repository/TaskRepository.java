@@ -16,4 +16,6 @@ public interface TaskRepository {
     List<Task> list();
 
     List<Task> list(User user);
+
+    Task findById(Long taskId);
 }

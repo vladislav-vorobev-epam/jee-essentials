@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://soap.todo.jee.cdp.epam.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="TaskWebServiceService" targetNamespace="http://soap.todo.jee.cdp.epam.com/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.todo.jee.cdp.epam.com/" elementFormDefault="unqualified" targetNamespace="http://soap.todo.jee.cdp.epam.com/" version="1.0">
+      <xs:element name="tasks" type="tns:tasks"/>
+      <xs:element name="tasksResponse" type="tns:tasksResponse"/>
+      <xs:complexType name="tasks">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="tasksResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:task"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="task">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dueDateTime" type="tns:dateTime"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="user" type="tns:user"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType final="extension restriction" name="dateTime">
+        <xs:complexContent>
+          <xs:extension base="tns:baseDateTime">
+            <xs:sequence/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="baseDateTime">
+        <xs:complexContent>
+          <xs:extension base="tns:abstractDateTime">
+            <xs:sequence/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="abstractDateTime">
+        <xs:complexContent>
+          <xs:extension base="tns:abstractInstant">
+            <xs:sequence/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="abstractInstant">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="user">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="login" type="xs:string"/>
+          <xs:element minOccurs="0" name="password" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="tasks" nillable="true" type="tns:task"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="tasksResponse">
+    <wsdl:part element="tns:tasksResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="tasks">
+    <wsdl:part element="tns:tasks" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TaskWebService">
+    <wsdl:operation name="tasks">
+      <wsdl:input message="tns:tasks" name="tasks">
+      </wsdl:input>
+      <wsdl:output message="tns:tasksResponse" name="tasksResponse">
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TaskWebServiceServiceSoapBinding" type="tns:TaskWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="tasks">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="tasks">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="tasksResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TaskWebServiceService">
+    <wsdl:port binding="tns:TaskWebServiceServiceSoapBinding" name="TaskWebServicePort">
+      <soap:address location="http://192.168.56.75:8080/todo/TaskWebService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
