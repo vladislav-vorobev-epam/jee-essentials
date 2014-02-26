@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
   #config.vm.network :forwarded_port, guest: 8080, host: 8181
 
   config.vm.network :private_network, ip: vm_ip
+  config.ssh.username = 'dev'
 
   # config.vm.synced_folder "../data", "/vagrant_data"
 
