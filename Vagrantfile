@@ -9,8 +9,8 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "#{project_key}.vm.local"
 
   config.vm.define project_key do |c|
-    c.vm.box = 'dev.vm.centos65.box'
-    c.vm.box_url = 'http://webdizz.name/vm_image/dev.vm.centos65.box'
+    c.vm.box = 'centos65-jeeessentials.box'
+    c.vm.box_url = 'http://webdizz.name/vm_image/centos65-jeeessentials.box'
   end
 
   #config.vm.network :forwarded_port, guest: 8080, host: 8181
