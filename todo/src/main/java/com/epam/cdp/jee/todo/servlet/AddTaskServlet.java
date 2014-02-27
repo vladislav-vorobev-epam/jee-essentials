@@ -12,6 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import com.epam.cdp.jee.todo.persistence.Jdbc;
 import com.epam.cdp.jee.todo.persistence.Jpa;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
@@ -24,7 +25,7 @@ import com.epam.cdp.jee.todo.DateFormatConstants;
 public class AddTaskServlet extends HttpServlet {
 
     @Inject
-    @Jpa
+    @Jdbc
     private TaskRepository taskRepository;
 
     @Inject
