@@ -31,14 +31,15 @@ public class TaskJdbcRepository implements TaskRepository {
 
     @Override
     public void add(final Task task) {
-        try {
-            Connection connection = getConnection();
-            PreparedStatement statement = connection
-                    .prepareStatement("INSERT INTO tasks (id, name, due_datetime) VALUES(?, ?, ?)");
-            statement.setLong(1, new Date().getTime());
-            statement.setString(2, task.getName());
-            statement.setTimestamp(3, new Timestamp(task.getDueDateTime().getMillis()));
-            statement.executeUpdate();
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement statement = connection
+                    .prepareStatement("INSERT INTO tasks (id, name, due_datetime) VALUES(?, ?, ?)")) {
+
+                statement.setLong(1, new Date().getTime());
+                statement.setString(2, task.getName());
+                statement.setTimestamp(3, new Timestamp(task.getDueDateTime().getMillis()));
+                statement.executeUpdate();
+            }
         } catch (SQLException e) {
             log.error("Unable to establish a connection.", e);
         }
