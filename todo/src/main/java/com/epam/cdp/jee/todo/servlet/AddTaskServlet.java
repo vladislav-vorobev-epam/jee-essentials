@@ -26,7 +26,7 @@ public class AddTaskServlet extends HttpServlet {
         String login = request.getParameter("username");
         String taskName = request.getParameter("name");
         String dueDateParam = request.getParameter("dueDateTime");
-        Task task = new Task(null, taskName, new DateTime());
+        Task task = new Task(1L, taskName, new DateTime());
         task.setName(taskName);
         task.setDueDateTime(DateTimeFormat.forPattern(DateFormatConstants.DATE_TIME).parseDateTime(dueDateParam));
         // TODO: add task assignment to user
