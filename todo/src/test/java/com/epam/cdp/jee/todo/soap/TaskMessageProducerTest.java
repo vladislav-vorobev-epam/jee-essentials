@@ -25,7 +25,7 @@ public class TaskMessageProducerTest {
     private static final String DEFAULT_USERNAME = "jndi";
     private static final String DEFAULT_PASSWORD = "jndi_123";
     private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
-    private static final String PROVIDER_URL = "remote://192.168.56.75:4447";
+    private static final String PROVIDER_URL = "remote://192.168.56.102:4447";
 
     @Test
     public void shouldSendMessage() throws NamingException, JMSException {
@@ -49,6 +49,7 @@ public class TaskMessageProducerTest {
 
         Session session;
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+      session.run();
         org.jboss.naming.remote.client.InitialContextFactory tt;
 
         MessageProducer producer;
