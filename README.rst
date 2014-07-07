@@ -18,7 +18,11 @@ Start::
 
 Deployment::
 
-  mvn clean package jboss-as:deploy
+  mvn clean package jboss-as:deploy -s settings.xml
+
+Undeployment::
+
+  mvn jboss-as:undeploy -s settings.xml
 
 =================
 JBoss Management Console
