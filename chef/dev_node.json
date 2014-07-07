@@ -1,0 +1,21 @@
+{
+    "maven":{"3":{"version":"3.1.1"}},
+    "java":{"jdk_version":7,"install_flavor":"oracle"},
+    "ant":{"install_method":"source"},
+    "mysql":{
+        "version": "5.6",
+        "bind_address": "192.168.56.102",
+        "server_root_password": "123456",
+        "server_debian_password": "123456",
+        "server_repl_password": "123456",
+        "tunable":{
+            "innodb_flush_method":"O_DIRECT",
+            "wait_timeout":28800,
+            "query_cache_size":"32M",
+            "long_query_time":1,
+            "innodb_buffer_pool_size":"200M",
+            "max_connections":500
+        }
+    },
+    "jee":{"host":{"ip":"192.168.56.102"}}
+}

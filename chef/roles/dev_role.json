@@ -1,0 +1,13 @@
+{
+    "name": "ci_role",
+    "json_class": "Chef::Role",
+    "description": "This is a role to setup dev",
+    "chef_type": "role",
+    "run_list": [
+        "recipe[jee::jboss]",
+        "recipe[polyglot::java]",
+        "recipe[jee::database]"
+    ],
+    "override_attributes": {
+    }
+}
