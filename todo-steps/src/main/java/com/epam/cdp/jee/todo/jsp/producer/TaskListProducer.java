@@ -13,7 +13,6 @@ import com.google.common.collect.Lists;
 @RequestScoped
 public class TaskListProducer {
 
-
     // @Named provides access the return value via the EL variable name "tasks" in the JSP view
     @Produces
     @Named

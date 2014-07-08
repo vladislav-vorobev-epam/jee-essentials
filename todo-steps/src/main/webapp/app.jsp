@@ -9,6 +9,7 @@
 <head>
 <body>
 <div class="container">
+    <jsp:include page="parts/navigation.jsp"/>
     <div class="panel panel-default">
         <div class="panel-heading">Tasks List</div>
         <table class="table">
