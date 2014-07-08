@@ -11,7 +11,20 @@
   <div class="panel panel-default">
     <div class="panel-heading">New ToDo item</div>
     <div class="panel-body">
-      Here should be a form
+      <form action="/todo/task/add.do" method="POST" class="form-new-task" role="form">
+        <input type="hidden" name="username" value="<%= session.getAttribute("username")%>">
+
+        <div class="input-group">
+          <input name="name" type="text" class="form-control" placeholder="Name" required autofocus>
+        </div>
+        <br/>
+        <div class="input-group">
+          <input name="dueDateTime" id="dueDateTime" type="text" class="form-control" placeholder="Due Time" required>
+        </div>
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+
+      </form>
     </div>
   </div>
 </div>
