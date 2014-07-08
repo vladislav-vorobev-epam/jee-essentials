@@ -9,18 +9,15 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "#{project_key}.vm.local"
 
   config.vm.define project_key do |c|
-    c.vm.box = 'centos65-jeeessentials.box'
-    c.vm.box_url = 'http://webdizz.name/vm_image/centos65-jeeessentials.box'
+    c.vm.box = 'centos-jee.box'
+    c.vm.box_url = 'http://webdizz.name/jeeessentials/centos-jee.box'
   end
 
   #config.vm.network :forwarded_port, guest: 8080, host: 8181
-  config.ssh.username = 'dev'
+  config.ssh.username = 'vagrant'
   config.vm.network :private_network, ip: vm_ip
 
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
   config.vm.provider :virtualbox do |vb|
-    # Don't boot with headless mode
     vb.gui = false
     vb.customize ["modifyvm", :id, "--memory", "2048"]
     vb.customize ["modifyvm", :id, "--cpus", 4]
