@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.epam.cdp.jee.todo.persistence.Jpa;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
@@ -34,21 +35,19 @@ public class TaskJpaRepository implements TaskRepository {
 
     @Override
     public List<Task> list() {
-        List<Task> tasks;
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Task> query = criteriaBuilder.createQuery(Task.class);
-        query.distinct(true).from(Task.class);
-        tasks = entityManager.createQuery(query).getResultList();
-        return tasks;
+        Root<Task> taskRoot = query.from(Task.class);
+        query.select(taskRoot);
+        query.orderBy(criteriaBuilder.asc(taskRoot.get("dueDateTime")));
+        return entityManager.createQuery(query).getResultList();
     }
 
     @Override
     public List<Task> list(final String tagName) {
-        List<Task> tasks;
-        Query query = entityManager.createQuery("SELECT t FROM Task t INNER JOIN t.tags tag WHERE tag.name = :tagName", Task.class);
+        Query query = entityManager.createQuery("SELECT t FROM Task t INNER JOIN t.tags tag WHERE tag.name = :tagName ORDER BY t.dueDateTime ASC", Task.class);
         query.setParameter("tagName", tagName);
-        tasks = query.getResultList();
-        return tasks;
+        return query.getResultList();
     }
 
     @Override
