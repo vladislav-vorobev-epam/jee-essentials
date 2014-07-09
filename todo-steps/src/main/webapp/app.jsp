@@ -22,7 +22,7 @@
                         ${task.name}
                     </td>
                     <td>
-                        <fmt:formatDate value="${task.dueDateTime.toDate()}" pattern="yyyy-MM-dd HH:mm" />
+                        <fmt:formatDate value="${task.dueDateTime.toDate()}" pattern="dd-MM-yyyy HH:mm" />
                     </td>
                 </tr>
             </c:forEach>

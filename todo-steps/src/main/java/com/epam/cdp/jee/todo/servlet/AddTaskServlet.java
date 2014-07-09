@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.joda.time.format.DateTimeFormat;
 
+import com.epam.cdp.jee.todo.DateFormatConstants;
 import com.epam.cdp.jee.todo.persistence.Jdbc;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
@@ -34,7 +35,7 @@ public class AddTaskServlet extends HttpServlet {
         String dueDateParam = request.getParameter("dueDateTime");
         Task task = new Task();
         task.setName(taskName);
-        task.setDueDateTime(DateTimeFormat.forPattern("dd-MM-yyyy H:m").parseDateTime(dueDateParam));
+        task.setDueDateTime(DateTimeFormat.forPattern(DateFormatConstants.DATE_TIME).parseDateTime(dueDateParam));
         log.info("Is about to save new task.");
         taskRepository.add(task);
         response.sendRedirect(request.getContextPath() + "/app.jsp");

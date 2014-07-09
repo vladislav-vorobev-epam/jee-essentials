@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +25,8 @@ import com.epam.cdp.jee.todo.DateFormatConstants;
 @NoArgsConstructor
 @Slf4j
 public class AddTaskServlet extends HttpServlet {
+
+    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(DateFormatConstants.DATE_TIME);
 
     @Inject
     @Jdbc
@@ -40,7 +44,7 @@ public class AddTaskServlet extends HttpServlet {
         String dueDateParam = request.getParameter("dueDateTime");
         Task task = new Task();
         task.setName(taskName);
-        task.setDueDateTime(DateTimeFormat.forPattern(DateFormatConstants.DATE_TIME).parseDateTime(dueDateParam));
+        task.setDueDateTime(DATE_TIME_FORMATTER.parseDateTime(dueDateParam));
         taskRepository.add(task);
         // TODO: add task assignment to user
         response.sendRedirect(request.getContextPath() + "/app.jsp");
