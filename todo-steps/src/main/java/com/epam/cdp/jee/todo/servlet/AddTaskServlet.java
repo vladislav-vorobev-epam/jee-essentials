@@ -4,6 +4,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.joda.time.format.DateTimeFormat;
 
 import com.epam.cdp.jee.todo.DateFormatConstants;
-import com.epam.cdp.jee.todo.persistence.Jdbc;
+import com.epam.cdp.jee.todo.persistence.Jpa;
+import com.epam.cdp.jee.todo.persistence.entity.Tag;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
+import com.google.common.base.Strings;
 
 @WebServlet("/task/add.do")
 @NoArgsConstructor
@@ -24,7 +28,7 @@ import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
 public class AddTaskServlet extends HttpServlet {
 
     @Inject
-    @Jdbc
+    @Jpa
     private TaskRepository taskRepository;
 
     @Override
@@ -36,6 +40,16 @@ public class AddTaskServlet extends HttpServlet {
         Task task = new Task();
         task.setName(taskName);
         task.setDueDateTime(DateTimeFormat.forPattern(DateFormatConstants.DATE_TIME).parseDateTime(dueDateParam));
+
+        String tagsParam = request.getParameter("tags");
+        if (!Strings.isNullOrEmpty(tagsParam)) {
+            Set<Tag> tagSet = new HashSet<>();
+            String[] tags = tagsParam.split(",");
+            for (int i = 0; i < tags.length; i++) {
+                tagSet.add(new Tag(tags[i]));
+            }
+            task.setTags(tagSet);
+        }
         log.info("Is about to save new task.");
         taskRepository.add(task);
         response.sendRedirect(request.getContextPath() + "/app.jsp");

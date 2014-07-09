@@ -22,6 +22,10 @@
           <input name="dueDateTime" id="dueDateTime" type="text" class="form-control" placeholder="Due Time" required>
         </div>
         <br/>
+        <div class="input-group">
+          <input name="tags" id="tags" type="text" class="form-control" placeholder="Tags" required>
+        </div>
+        <br/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
 
       </form>
