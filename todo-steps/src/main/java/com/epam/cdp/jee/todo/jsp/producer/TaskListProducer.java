@@ -2,26 +2,27 @@ package com.epam.cdp.jee.todo.jsp.producer;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.epam.cdp.jee.todo.persistence.Jdbc;
+import com.epam.cdp.jee.todo.persistence.Jpa;
 import com.epam.cdp.jee.todo.persistence.entity.Task;
 import com.epam.cdp.jee.todo.persistence.repository.TaskRepository;
 
 @RequestScoped
+@Named("taskListProducer")
 public class TaskListProducer {
 
     @Inject
-    @Jdbc
+    @Jpa
     private TaskRepository taskRepository;
 
-    // @Named provides access the return value via the EL variable name "tasks" in the JSP view
-    @Produces
-    @Named
     public List<Task> getTasks() {
         return taskRepository.list();
+    }
+
+    public List<Task> getTasks(final String tagName) {
+        return taskRepository.list(tagName);
     }
 
 }

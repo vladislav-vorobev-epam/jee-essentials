@@ -12,5 +12,7 @@ public interface TaskRepository {
 
     List<Task> list();
 
+    List<Task> list(String tagName);
+
     Task findById(Long taskId);
 }

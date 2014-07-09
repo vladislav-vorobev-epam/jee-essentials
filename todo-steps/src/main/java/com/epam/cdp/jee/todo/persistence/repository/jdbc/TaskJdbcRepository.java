@@ -75,6 +75,11 @@ public class TaskJdbcRepository implements TaskRepository {
     }
 
     @Override
+    public List<Task> list(final String tagName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Task findById(final Long taskId) {
         throw new UnsupportedOperationException();
     }

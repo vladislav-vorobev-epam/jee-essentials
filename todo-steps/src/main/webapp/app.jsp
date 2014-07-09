@@ -13,6 +13,14 @@
     <div class="panel panel-default">
         <div class="panel-heading">Tasks List</div>
         <table class="table">
+            <c:choose>
+                <c:when test="${pageContext.request.getParameter('tag') != null}">
+                    <c:set var="tasks" scope="page" value="${taskListProducer.getTasks(pageContext.request.getParameter('tag'))}" />
+                </c:when>
+                <c:otherwise>
+                    <c:set var="tasks" scope="page" value="${taskListProducer.getTasks()}" />
+                </c:otherwise>
+            </c:choose>
             <c:forEach items="${tasks}" var="task">
                 <tr>
                     <td>

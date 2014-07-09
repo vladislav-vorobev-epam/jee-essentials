@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -38,6 +39,15 @@ public class TaskJpaRepository implements TaskRepository {
         CriteriaQuery<Task> query = criteriaBuilder.createQuery(Task.class);
         query.distinct(true).from(Task.class);
         tasks = entityManager.createQuery(query).getResultList();
+        return tasks;
+    }
+
+    @Override
+    public List<Task> list(final String tagName) {
+        List<Task> tasks;
+        Query query = entityManager.createQuery("SELECT t FROM Task t INNER JOIN t.tags tag WHERE tag.name = :tagName", Task.class);
+        query.setParameter("tagName", tagName);
+        tasks = query.getResultList();
         return tasks;
     }
 
