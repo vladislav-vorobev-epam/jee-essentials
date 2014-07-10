@@ -1,7 +1,9 @@
 package com.epam.cdp.jee.todo.persistence.entity;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tags")
 @NoArgsConstructor
-public class Tag {
+@Data
+public class Tag implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
