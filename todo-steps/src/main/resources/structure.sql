@@ -23,7 +23,7 @@ CREATE TABLE `tags`
 CREATE TABLE `tasks_tags`
 (
   tasks_id BIGINT(11)  UNSIGNED  NOT NULL ,
-  tag_id BIGINT(11)  UNSIGNED  NOT NULL ,
-  PRIMARY KEY (`task_id`, `tag_id`)
+  tags_id BIGINT(11)  UNSIGNED  NOT NULL ,
+  PRIMARY KEY (`tasks_id`, `tags_id`)
 )
   DEFAULT CHARACTER SET `utf8`;
